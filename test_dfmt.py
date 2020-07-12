@@ -1,6 +1,14 @@
 import pytest
 
-from dfmt import reindent
+from dfmt import reindent, split_regions
+
+
+def test_empty_selection():
+    assert reindent("") == "\n"
+
+
+def test_empty_line():
+    assert reindent("\n") == "\n"
 
 
 def test_keep_small_lines():
@@ -74,7 +82,6 @@ def test_indented_pound_comment():
     assert reindent(text, width=20) == expected
 
 
-@pytest.mark.xfail(reason="Need the 'region' feauture")
 def test_pound_paragraphs():
     text = """\
     # this is a pretty big line in a Python comment that is indented
@@ -82,13 +89,79 @@ def test_pound_paragraphs():
     # and this is a second big line in a Python comment that is indented
 """
     expected = """\
-    # this is a pretty big
-    # line in a Python comment
-    # that is indented
+    # this is a
+    # pretty big
+    # line in a
+    # Python comment
+    # that is
+    # indented
     #
-    # and this is a second big
-    # line in a Python comment
-    # that is indented
+    # and this is a
+    # second big
+    # line in a
+    # Python comment
+    # that is
+    # indented
 """
     actual = reindent(text, width=20)
     assert actual == expected, actual
+
+
+class TestRegions:
+    @staticmethod
+    def test_one_line():
+        text = "hello"
+        regions = split_regions(text)
+        assert len(regions) == 1
+        actual = regions[0]
+        assert actual.prefix == ""
+        assert actual.text == "hello\n"
+
+    @staticmethod
+    def test_two_lines():
+        text = "hello\nworld"
+        regions = split_regions(text)
+        assert len(regions) == 1
+        actual = regions[0]
+        assert actual.prefix == ""
+        assert actual.text == "hello\nworld\n"
+
+    @staticmethod
+    def test_one_indented_paragraph():
+        text = """\
+  hello
+  world
+"""
+        regions = split_regions(text)
+        assert len(regions) == 1
+        actual = regions[0]
+        assert actual.prefix == "  "
+        assert actual.text == "  hello\n  world\n"
+
+    @staticmethod
+    def test_two_indented_paragraphs():
+        text = """\
+  hello
+  world
+
+  goodbye
+  world
+"""
+        regions = split_regions(text)
+        one, two, three = regions
+        assert two.prefix == ""
+        assert two.text == "\n"
+
+    @staticmethod
+    def test_two_paragraphs_in_pound_comment():
+        text = """\
+  # this is the
+  # first paragraph
+  #
+  # this is the
+  # second paragraph
+"""
+        regions = split_regions(text)
+        one, two, three = regions
+        assert two.prefix == "  "
+        assert two.text == "  #\n"
