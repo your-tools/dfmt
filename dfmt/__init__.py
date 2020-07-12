@@ -4,18 +4,14 @@ import re
 import sys
 import textwrap
 
+PREFIX_RE = re.compile(r"(\s*)(#|//|///|//!|\*)? ")
+
 
 def get_prefix(text):
-    match = re.match(r"\s*# ", text)
-    if match:
-        return match.group()
-    match = re.match(r"(\s+)\* ", text)
-    if match:
-        return match.group()
-    match = re.match(r"(\s+)", text)
-    if match:
-        return match.group()
-    return ""
+    match = PREFIX_RE.match(text)
+    if match is None:
+        return ""
+    return match.group()
 
 
 def reindent(text, *, width=80):

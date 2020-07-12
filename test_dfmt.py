@@ -1,6 +1,11 @@
 import pytest
 
-from dfmt import reindent, split_regions
+from dfmt import reindent, split_regions, get_prefix
+
+
+def test_get_prefix():
+    assert get_prefix("# ") == "# "
+    assert get_prefix(" * ") == " * "
 
 
 def test_empty_selection():
