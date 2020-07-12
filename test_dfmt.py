@@ -107,6 +107,21 @@ def test_pound_paragraphs():
     assert actual == expected, actual
 
 
+def test_empty_line_between_regions():
+    text = """\
+# first line
+
+# second line
+"""
+    expected = """\
+# first line
+
+# second line
+"""
+    actual = reindent(text, width=20)
+    assert actual == expected, actual
+
+
 class TestRegions:
     @staticmethod
     def test_one_line():

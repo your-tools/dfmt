@@ -28,9 +28,15 @@ def reindent(text, *, width=80):
     return res
 
 
+def is_blank(text):
+    return all(x == " " for x in text[:-1])
+
+
 def reindent_region(region, *, width):
     text = region.text
     prefix = region.prefix
+    if is_blank(text):
+        return "\n"
     lines = text.splitlines()
     prefix_length = len(prefix)
     to_wrap = "\n".join(x[prefix_length:] for x in text.splitlines())
