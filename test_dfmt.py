@@ -24,6 +24,16 @@ def test_keep_small_lines():
     assert reformat("this is small", width=20) == "this is small\n"
 
 
+def test_keep_long_words():
+    assert (
+        reformat(
+            "this is a very big url: https://a.very.long.domain.tld/a/very/long/path",
+            width=40,
+        )
+        == "this is a very big url:\nhttps://a.very.long.domain.tld/a/very/long/path\n"
+    )
+
+
 def test_into_two_lines():
     assert reformat("aaa bbb", width=3) == "aaa\nbbb\n"
 
