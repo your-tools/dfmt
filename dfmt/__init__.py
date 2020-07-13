@@ -14,13 +14,13 @@ def get_prefix(text):
     return match.group()
 
 
-def reindent(text, *, width=80):
+def reformat(text, *, width=80):
     if text in ("", "\n"):
         return "\n"
     regions = split_regions(text)
     res = ""
     for region in regions:
-        res += reindent_region(region, width=width)
+        res += reformat_region(region, width=width)
     return res
 
 
@@ -28,7 +28,7 @@ def is_blank(text):
     return all(x == " " for x in text[:-1])
 
 
-def reindent_region(region, *, width):
+def reformat_region(region, *, width):
     text = region.text
     prefix = region.prefix
     if is_blank(text):
@@ -70,5 +70,5 @@ def main():
     parser.add_argument("-w", "--width", default=80, type=int)
     args = parser.parse_args()
     text = sys.stdin.read()
-    wrapped = reindent(text, width=args.width)
+    wrapped = reformat(text, width=args.width)
     sys.stdout.write(wrapped)

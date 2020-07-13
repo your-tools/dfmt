@@ -1,6 +1,6 @@
 import pytest
 
-from dfmt import reindent, split_regions, get_prefix
+from dfmt import reformat, split_regions, get_prefix
 
 
 def test_get_prefix():
@@ -9,39 +9,39 @@ def test_get_prefix():
 
 
 def test_empty_selection():
-    assert reindent("") == "\n"
+    assert reformat("") == "\n"
 
 
 def test_empty_line():
-    assert reindent("\n") == "\n"
+    assert reformat("\n") == "\n"
 
 
 def test_blank_line():
-    assert reindent("   \n") == "\n"
+    assert reformat("   \n") == "\n"
 
 
 def test_keep_small_lines():
-    assert reindent("this is small", width=20) == "this is small\n"
+    assert reformat("this is small", width=20) == "this is small\n"
 
 
 def test_into_two_lines():
-    assert reindent("aaa bbb", width=3) == "aaa\nbbb\n"
+    assert reformat("aaa bbb", width=3) == "aaa\nbbb\n"
 
 
 def test_into_three_lines():
-    assert reindent("aaa bb ccc", width=3) == "aaa\nbb\nccc\n"
+    assert reformat("aaa bb ccc", width=3) == "aaa\nbb\nccc\n"
 
 
 def test_long_sentence():
     assert (
-        reindent("this is a pretty big sentence in two pretty big parts", width=12)
+        reformat("this is a pretty big sentence in two pretty big parts", width=12)
         == "this is a\npretty big\nsentence in\ntwo pretty\nbig parts\n"
     )
 
 
 def test_pound_comment_1_to_2():
     assert (
-        reindent("# this is a pretty big comment, isn't it?", width=20)
+        reformat("# this is a pretty big comment, isn't it?", width=20)
         == "# this is a pretty\n# big comment, isn't\n# it?\n"
     )
 
@@ -56,7 +56,7 @@ def test_pound_comment_2_to_3():
 # bbb
 # ccc
 """
-    assert reindent(text, width=5) == expected
+    assert reformat(text, width=5) == expected
 
 
 def test_doxygen():
@@ -68,12 +68,12 @@ def test_doxygen():
  * big line in a
  * doxygen comment
 """
-    assert reindent(text, width=20) == expected
+    assert reformat(text, width=20) == expected
 
 
 def test_preserve_leading_indent():
     text = " aaa bbb"
-    assert reindent(text, width=4) == " aaa\n bbb\n"
+    assert reformat(text, width=4) == " aaa\n bbb\n"
 
 
 def test_indented_pound_comment():
@@ -84,7 +84,7 @@ def test_indented_pound_comment():
     # this is a pretty big line in a
     # Python comment that is indented
 """
-    assert reindent(text, width=40) == expected
+    assert reformat(text, width=40) == expected
 
 
 def test_pound_paragraphs():
@@ -100,7 +100,7 @@ def test_pound_paragraphs():
     # and this is a second big line in a
     # Python comment that is indented
 """
-    actual = reindent(text, width=40)
+    actual = reformat(text, width=40)
     assert actual == expected, actual
 
 
@@ -115,7 +115,7 @@ def test_empty_line_between_regions():
 
 # second line
 """
-    actual = reindent(text, width=20)
+    actual = reformat(text, width=20)
     assert actual == expected, actual
 
 
