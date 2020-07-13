@@ -24,8 +24,8 @@ def reformat(text, *, width=80):
     return res
 
 
-def is_blank(text):
-    return all(x == " " for x in text[:-1])
+def is_blank(line):
+    return all(x == " " for x in line[:-1])
 
 
 def reformat_region(region, *, width):
