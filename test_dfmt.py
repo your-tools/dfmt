@@ -16,6 +16,10 @@ def test_empty_line():
     assert reindent("\n") == "\n"
 
 
+def test_blank_line():
+    assert reindent("   \n") == "\n"
+
+
 def test_keep_small_lines():
     assert reindent("this is small", width=20) == "this is small\n"
 
@@ -77,14 +81,10 @@ def test_indented_pound_comment():
     # this is a pretty big line in a Python comment that is indented
 """
     expected = """\
-    # this is a
-    # pretty big
-    # line in a
-    # Python comment
-    # that is
-    # indented
+    # this is a pretty big line in a
+    # Python comment that is indented
 """
-    assert reindent(text, width=20) == expected
+    assert reindent(text, width=40) == expected
 
 
 def test_pound_paragraphs():
@@ -94,21 +94,13 @@ def test_pound_paragraphs():
     # and this is a second big line in a Python comment that is indented
 """
     expected = """\
-    # this is a
-    # pretty big
-    # line in a
-    # Python comment
-    # that is
-    # indented
+    # this is a pretty big line in a
+    # Python comment that is indented
     #
-    # and this is a
-    # second big
-    # line in a
-    # Python comment
-    # that is
-    # indented
+    # and this is a second big line in a
+    # Python comment that is indented
 """
-    actual = reindent(text, width=20)
+    actual = reindent(text, width=40)
     assert actual == expected, actual
 
 
