@@ -4,7 +4,7 @@ import re
 import sys
 import textwrap
 
-PREFIX_RE = re.compile(r"(\s*)(#|//|///|//!|\*)? ")
+PREFIX_RE = re.compile(r"(\s*)(#|//|///|//!|\*|-|)? ")
 
 
 def get_prefix(text):
