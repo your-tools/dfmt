@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dfmt"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
 authors = ["Dimitri Merejkowsky <d.merej@gmail.com>"]
 readme = "README.rst"
