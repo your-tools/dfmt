@@ -19,6 +19,9 @@ tag_template = "v{new_version}"
 src = "pyproject.toml"
 search = 'version = "'
 
+[[before_commit]]
+name = "run tests"
+cmd = "poetry run pytest"
 
 [[after_push]]
 name = "publish"
