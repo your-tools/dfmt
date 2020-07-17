@@ -14,35 +14,8 @@ def get_prefix(text):
     return match.group()
 
 
-def reformat(text, *, width=80):
-    if text in ("", "\n"):
-        return "\n"
-    regions = split_regions(text)
-    res = ""
-    for region in regions:
-        res += reformat_region(region, width=width)
-    return res
-
-
 def is_blank(line):
     return all(x == " " for x in line[:-1])
-
-
-def reformat_region(region, *, width):
-    text = region.text
-    prefix = region.prefix
-    if is_blank(text):
-        return "\n"
-    lines = text.splitlines()
-    prefix_length = len(prefix)
-    to_wrap = "\n".join(x[prefix_length:] for x in text.splitlines())
-    wrapped = textwrap.wrap(
-        to_wrap, width=width - prefix_length, break_long_words=False
-    )
-    res = ""
-    for line in wrapped:
-        res += prefix + line + "\n"
-    return res
 
 
 @dataclass
@@ -64,6 +37,33 @@ def split_regions(text):
             current_prefix = prefix
         else:
             current_region.text += line + "\n"
+    return res
+
+
+def reformat_region(region, *, width):
+    text = region.text
+    prefix = region.prefix
+    if is_blank(text):
+        return "\n"
+    lines = text.splitlines()
+    prefix_length = len(prefix)
+    to_wrap = "\n".join(x[prefix_length:] for x in text.splitlines())
+    wrapped = textwrap.wrap(
+        to_wrap, width=width - prefix_length, break_long_words=False
+    )
+    res = ""
+    for line in wrapped:
+        res += prefix + line + "\n"
+    return res
+
+
+def reformat(text, *, width=80):
+    if text in ("", "\n"):
+        return "\n"
+    regions = split_regions(text)
+    res = ""
+    for region in regions:
+        res += reformat_region(region, width=width)
     return res
 
 
