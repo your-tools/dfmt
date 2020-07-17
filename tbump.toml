@@ -25,4 +25,4 @@ cmd = "poetry run pytest"
 
 [[after_push]]
 name = "publish"
-cmd = "poetry publish"
+cmd = "poetry publish --build"
