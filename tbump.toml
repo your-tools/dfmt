@@ -1,0 +1,25 @@
+github_url = "https://github.com/dmerejkowsky/dfmt"
+
+[version]
+current = "0.1.0"
+
+regex = '''
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  '''
+
+[git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+[[file]]
+src = "pyproject.toml"
+search = 'version = "'
+
+
+[[after_push]]
+name = "publish"
+cmd = "poetry publish"
