@@ -3,6 +3,10 @@ name = "dfmt"
 version = "1.0.0"
 description = ""
 authors = ["Dimitri Merejkowsky <d.merej@gmail.com>"]
+readme = "README.rst"
+license = "BSD-3-Clause"
+repository = "https://github.com/dmerejkowsky/dfmt"
+
 
 [tool.poetry.dependencies]
 python = "^3.7"
