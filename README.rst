@@ -1,6 +1,10 @@
 dfmt: format paragraphs, comments and doc strings
 =================================================
 
+.. image:: https://img.shields.io/pypi/v/dfmt.svg
+   :target: https://pypi.org/project/dfmt/
+
+
 Overview
 --------
 
