@@ -8,20 +8,6 @@ def test_get_prefix():
     assert get_prefix(" * ") == " * "
 
 
-def test_quoting_nested():
-    text = """\
-> Inline comment by a third party which wraps onto multiple lines
-"""
-    expected = """\
-> Inline comment by a third
-> party which wraps onto
-> multiple lines
-"""
-    actual = reformat(text, width=30)
-    if actual != expected:
-        pytest.fail(actual)
-
-
 class TestRegions:
     @staticmethod
     def test_one_line():
