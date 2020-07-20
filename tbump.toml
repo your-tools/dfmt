@@ -23,6 +23,10 @@ search = 'version = "'
 name = "run tests"
 cmd = "poetry run pytest"
 
+[[before_commit]]
+name = "check changelog"
+cmd = "grep -q ${new_version} CHANGELOG.rst"
+
 [[after_push]]
 name = "publish"
 cmd = "poetry publish --build"
