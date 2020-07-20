@@ -6,6 +6,8 @@ from dfmt import reformat, split_regions, get_prefix
 def test_get_prefix():
     assert get_prefix("# ") == "# "
     assert get_prefix(" * ") == " * "
+    assert get_prefix(" > ") == " > "
+    assert get_prefix(">> ") == ">> "
 
 
 class TestRegions:
@@ -211,7 +213,6 @@ def test_quoting_simple():
         pytest.fail(actual)
 
 
-@pytest.mark.xfail(reason="https://github.com/dmerejkowsky/dfmt/issues/1")
 def test_quoting_nested():
     text = """\
 > Inline commentary by a third party which also wraps onto multiple lines
