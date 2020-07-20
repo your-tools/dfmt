@@ -4,7 +4,28 @@ import re
 import sys
 import textwrap
 
-PREFIX_RE = re.compile(r"(\s*)(#|//|///|//!|\*|-|)? ")
+PREFIX_RE = re.compile(
+    r"""
+	(\s*) # Some blanks, then either:
+	(
+	  \#  # Pound comments
+	  |
+	  //  # C-style comments
+	  |
+	  /// # Rust doc comments
+	  |
+	  //! # Doxygen
+	  |
+	  \*  # Bullet point (star)
+	  |
+	  -   # Bullet point (dash)
+	  |
+	  >   # Quoted text
+        )?
+	[ \t]   # Exactly one space or tab
+	  """,
+    re.VERBOSE,
+)
 
 
 def get_prefix(text):
