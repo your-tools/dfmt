@@ -64,6 +64,3 @@ prefix.
 
 Then it will use the ``textwrap`` module from the Python standard library
 to wrap each region while keeping the existing prefix.
-
-It is also a bit smarted than vim's ``gq`` commands, because it can
-keep leading ``*`` in Doxygen comments for instance.
