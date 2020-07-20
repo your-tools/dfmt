@@ -223,3 +223,23 @@ def test_quoting_simple():
     actual = reformat(text, width=30)
     if actual != expected:
         pytest.fail(actual)
+
+
+@pytest.mark.xfail(reason="https://github.com/dmerejkowsky/dfmt/issues/1")
+def test_quoting_nested():
+    text = """\
+> Inline commentary by a third party which also wraps onto multiple lines
+
+> > Some kind of very long text that's being quoted by somebody else.
+"""
+
+    expected = """\
+> Inline commentary by a third party which also
+> wraps onto multiple lines
+
+> > Some kind of very long text that's being
+> > quoted by somebody else.
+"""
+    actual = reformat(text, width=50)
+    if actual != expected:
+        pytest.fail(actual)
