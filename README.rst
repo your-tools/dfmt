@@ -36,6 +36,13 @@ Output::
    * space
    */
 
+
+Installation
+-------------
+
+The recommended way is to use `pipx` to install `dfmt`. You can also use `pip` directly if you know
+what you are doing.
+
 Usage
 -----
 
