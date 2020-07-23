@@ -4,8 +4,7 @@ import re
 import sys
 import textwrap
 
-PREFIX_RE = re.compile(
-    r"""
+SIMPLE_PREFIX_RE = r"""
 	(\s*) # Some blanks, then either:
 	(
 	  \#  # Pound comments
@@ -19,20 +18,22 @@ PREFIX_RE = re.compile(
 	  \*  # Bullet point (star)
 	  |
 	  -   # Bullet point (dash)
-	  |
-	  >   # Quoted text
-        )?
+    )?
 	[ \t]   # Exactly one space or tab
-	  """,
-    re.VERBOSE,
-)
+"""
+
+
+BLOCKQUOTE_RE = r"\s*(>\s*)+\s+"
+
+FULL_RE = re.compile(f"{BLOCKQUOTE_RE}|{SIMPLE_PREFIX_RE}", re.VERBOSE)
 
 
 def get_prefix(text):
-    match = PREFIX_RE.match(text)
+    match = FULL_RE.match(text)
     if match is None:
         return ""
-    return match.group()
+    else:
+        return match.group()
 
 
 def is_blank(line):
