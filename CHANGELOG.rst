@@ -1,3 +1,9 @@
+v1.2.0 (2020-07-23)
+--------------------
+
+* Add support for nested quotes (starting with ``>> `` or ``> > ``. Suggested
+  by @Screwtapello
+
 v1.1.0 (2020-07-20)
 --------------------
 
