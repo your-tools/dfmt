@@ -12,8 +12,8 @@ repository = "https://github.com/dmerejkowsky/dfmt"
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-black = "^19.10b0"
-pytest = "^5.4.3"
+black = "^22.1"
+pytest = "^6.1"
 
 [tool.poetry.scripts]
 dfmt = "dfmt:main"
