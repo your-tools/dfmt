@@ -5,6 +5,8 @@ dfmt: format paragraphs, comments and doc strings
    :target: https://pypi.org/project/dfmt/
 
 
+**This repository has moved to**  `codeberg <https://codeberg.org/your-tools/>`_ - **see you there !**
+
 Overview
 --------
 
